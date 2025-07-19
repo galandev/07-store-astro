@@ -17,9 +17,7 @@ const fullImages = images.map( image => {
 ---
 
 <div class="swiper mt-10 col-span-1 sm:col-span-2">
-  <!-- Additional required wrapper -->
   <div class="swiper-wrapper">
-    <!-- Slides -->
     {
       fullImages.map( image => (
         <div class="swiper-slide">
@@ -43,12 +41,12 @@ const fullImages = images.map( image => {
   import Swiper from 'swiper';
   import { Pagination } from 'swiper/modules';
 
-  const swiper = new Swiper('.swiper', {
-
-  pagination: {
-    el: '.swiper-pagination',
-  },
-
-  modules: [Pagination]
+  document.addEventListener('astro:page-load', () => {
+    const swiper = new Swiper('.swiper', {
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    modules: [Pagination]
+    });
 });
 </script>

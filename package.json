@@ -16,11 +16,14 @@
     "@astrojs/react": "^4.3.0",
     "@astrojs/tailwind": "^6.0.2",
     "@auth/core": "^0.37.4",
+    "@nanostores/react": "^1.0.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "astro": "^5.11.0",
     "auth-astro": "^4.1.2",
     "bcryptjs": "^2.4.3",
+    "js-cookie": "^3.0.5",
+    "nanostores": "^1.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "sweetalert2": "^11.12.1",
@@ -31,6 +34,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/js-cookie": "^3.0.6",
     "@types/uuid": "^10.0.0"
   }
 }

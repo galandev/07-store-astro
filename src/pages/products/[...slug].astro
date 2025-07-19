@@ -45,7 +45,7 @@ const { product, images } = data;
         <button class="btn-quantity">+</button>
       </div>
 
-      <button class="mt-5 bg-blue-500 text-white p-3 w-full"
+      <button class="mt-5 bg-blue-500 text-white p-3 w-full disabled:bg-gray-500"
         >Añadir al carrito</button
       >
 
@@ -58,7 +58,14 @@ const { product, images } = data;
 </MainLayout>
 
 <script>
+import { itemsInCart } from "@/store/cart.store";
+import { CartCookiesClient } from "@/utils";
+import { navigate } from "astro:transitions/client";
+
+document.addEventListener('astro:page-load', () => {
+  
   const sizeElements = document.querySelectorAll('li');
+  
   sizeElements.forEach( liElement => {
     liElement.addEventListener('click', () => {
       sizeElements.forEach( s => s.classList.remove('selected-size'));
@@ -73,6 +80,8 @@ const { product, images } = data;
 
   const [ decrementButton, incrementButton, addToCardButton ] = document.querySelectorAll('button');
 
+  if(!incrementButton || !quantityInput) return;
+
   incrementButton.addEventListener('click', () => {
     quantity = Math.min(quantity + 1, 5);
     quantityInput.value = quantity.toString();
@@ -83,7 +92,7 @@ const { product, images } = data;
     quantityInput.value = quantity.toString();
   });
 
-  addToCardButton.addEventListener('click', () => {
+  addToCardButton.addEventListener('click', async () => {
     const size = document.querySelector('.selected-size')?.textContent;
     
     if(!size) {
@@ -92,13 +101,17 @@ const { product, images } = data;
 
     addToCardButton.disabled = true;
 
-    console.log({
-      id: productIdInput.value,
+    const cart = CartCookiesClient.addItem({
+      productId: productIdInput.value,
       size: size,
       quantity: quantity
     });
-  });
 
+    itemsInCart.set(cart.length);
+
+    await navigate('/cart');
+  });
+});
 </script>
 
 
